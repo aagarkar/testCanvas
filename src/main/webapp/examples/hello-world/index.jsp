@@ -33,11 +33,29 @@
         }
 
         Sfdc.canvas(function() {
-            var sr = JSON.parse('<%=signedRequestJson%>');
-            // Save the token
-            Sfdc.canvas.oauth.token(sr.oauthToken);
-            Sfdc.canvas.byId('username').innerHTML = sr.context.user.fullName;
-        });
+           var sr = JSON.parse('<%=signedRequestJson%>');
+   // Save the token
+   Sfdc.canvas.oauth.token(sr.oauthToken);
+   Sfdc.canvas.byId('username').innerHTML = sr.context.user.fullName;
+            
+   //Prepare a query url to query leads data from Salesforce
+   var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+company+,+phone+from+Lead";
+            
+   //Retrieve data using Ajax call
+   Sfdc.canvas.client.ajax(queryUrl, {client : sr.client,
+                 method: "GET",
+                 contentType: "application/json",
+                 success : function(data){
+                    var returnedLeads = data.payload.records;
+                    var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Company</th><th>Phone</th></tr>';
+                    for (var leadPos=0; leadPos < returnedLeads.length; leadPos = leadPos + 1) {
+                      optionStr = optionStr + '<tr><td><input type="checkbox" onclick="setCheckedValues(\''+returnedLeads[leadPos].Name+'\',\''+returnedLeads[leadPos].Phone+'\');" name="checkedLeads" value="'+returnedLeads[leadPos].Id+'"></td><td>'+ returnedLeads[leadPos].Id + '</td><td>' + returnedLeads[leadPos].Name + '</td><td>' + returnedLeads[leadPos].Company + '</td><td>' + returnedLeads[leadPos].Phone + '</td></tr>';
+                   } //end for
+                   leadStr=leadStr+'</table>';
+       
+                   Sfdc.canvas.byId('leaddetails').innerHTML = leadStr;
+                 }}); //end success callback
+   });  //end ajax call
 
     </script>
 </head>
