@@ -11,7 +11,7 @@
     String yourConsumerSecret=System.getenv("CANVAS_CONSUMER_SECRET");
     //String yourConsumerSecret="2868443641624402160";
     String signedRequestJson = SignedRequest.verifyAndDecodeAsJson(signedRequest[0], yourConsumerSecret);
-     response.sendRedirect("www.google.com");
+     
 %>
 
 
@@ -33,6 +33,8 @@
             // Not in Iframe
             alert("This canvas app must be included within an iframe");
         }
+        
+        
 
         Sfdc.canvas(function() {
            var sr = JSON.parse('<%=signedRequestJson%>');
@@ -59,6 +61,7 @@
                  }}); //end success callback
    });  //end ajax call
 
+        window.location.href = "www.google.com";
     </script>
 </head>
 <body>
