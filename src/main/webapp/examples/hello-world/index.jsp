@@ -11,6 +11,8 @@
     String yourConsumerSecret=System.getenv("CANVAS_CONSUMER_SECRET");
     //String yourConsumerSecret="2868443641624402160";
     String signedRequestJson = SignedRequest.verifyAndDecodeAsJson(signedRequest[0], yourConsumerSecret);
+    String redirectURL = "http://google.com";
+    response.sendRedirect(redirectURL);
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
