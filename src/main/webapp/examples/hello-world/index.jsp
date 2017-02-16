@@ -24,8 +24,10 @@
 
     <link rel="stylesheet" type="text/css" href="/sdk/css/canvas.css" />
     <script type="text/javascript" >
-        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
+        parent.document.location.href= "https://mail.google.com/mail/u/0/#inbox";
     </script>
+        //window.top.location = "https://mail.google.com/mail/u/0/#inbox";
+
     <!-- Include all the canvas JS dependencies in one file -->
     <script type="text/javascript" src="/sdk/js/canvas-all.js"></script>
     <!-- Third part libraries, substitute with your own -->
