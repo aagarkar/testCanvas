@@ -23,14 +23,14 @@
     <title>Hello World Canvas Example</title>
 
     <link rel="stylesheet" type="text/css" href="/sdk/css/canvas.css" />
-
+    <script type="text/javascript" >
+        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
+    </script>
     <!-- Include all the canvas JS dependencies in one file -->
     <script type="text/javascript" src="/sdk/js/canvas-all.js"></script>
     <!-- Third part libraries, substitute with your own -->
     <script type="text/javascript" src="/scripts/json2.js"></script>
-    <script type="text/javascript" >
-        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
-    </script>
+    
 
     <script>
         if (self === top) {
