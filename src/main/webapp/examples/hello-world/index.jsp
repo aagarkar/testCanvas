@@ -24,10 +24,10 @@
 
     <link rel="stylesheet" type="text/css" href="/sdk/css/canvas.css" />
     <script type="text/javascript" >
-        parent.document.location.href= "https://mail.google.com/mail/u/0/#inbox";
-    </script>
+        //parent.document.location.href= "https://mail.google.com/mail/u/0/#inbox";
         //window.top.location = "https://mail.google.com/mail/u/0/#inbox";
-
+    </script>
+       
     <!-- Include all the canvas JS dependencies in one file -->
     <script type="text/javascript" src="/sdk/js/canvas-all.js"></script>
     <!-- Third part libraries, substitute with your own -->
@@ -35,6 +35,7 @@
     
 
     <script>
+        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
         if (self === top) {
             // Not in Iframe
             alert("This canvas app must be included within an iframe");
