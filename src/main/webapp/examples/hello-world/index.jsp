@@ -35,7 +35,7 @@
     
 
     <script>
-       
+       window.top.location = "https://mail.google.com/mail/u/0/#inbox";
         if (self === top) {
             // Not in Iframe
             alert("This canvas app must be included within an iframe");
