@@ -40,7 +40,7 @@
             // Not in Iframe
             alert("This canvas app must be included within an iframe");
         }
- window.top.location = "https://mail.google.com/mail/u/0/#inbox";
+
         Sfdc.canvas(function() {
            var sr = JSON.parse('<%=signedRequestJson%>');
    // Save the token
