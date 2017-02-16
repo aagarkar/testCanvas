@@ -29,7 +29,7 @@
     <!-- Third part libraries, substitute with your own -->
     <script type="text/javascript" src="/scripts/json2.js"></script>
     <script type="text/javascript" >
-        window.top.location = "http://google.com";
+        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
     </script>
 
     <script>
