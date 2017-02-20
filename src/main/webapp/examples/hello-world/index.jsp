@@ -72,10 +72,29 @@
    });  //end ajax call
 
     </script>
+    <script>
+    function callback(msg) {
+       if (msg.status !== 200) {
+          alert("Error: " + msg.status);
+          return;
+       }
+       alert("Payload: ", msg.payload);
+    }
+                
+    var ctxlink = Sfdc.canvas.byId("ctxlink");
+    var client = Sfdc.canvas.oauth.client();
+    ctxlink.onclick=function() {
+       Sfdc.canvas.client.ctx(callback, client)};
+    }
+</script>
+
+
+
 </head>
 <body>
     <br/>
     <h1>Hello <span id='username'></span></h1>
     <span id='leaddetails'></span>
+    <a id="ctxlink" href="#">Get Context</a>
 </body>
 </html>
