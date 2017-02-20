@@ -50,11 +50,11 @@
         //added code
         
         
-          var sr = JSON.parse('<%=signedRequestJson%>');
+          //var sr = JSON.parse('<%=signedRequestJson%>');
    // Save the token
-           //  var sr = JSON.parse(msg);
-   Sfdc.canvas.oauth.token(sr.oauthToken);
-   Sfdc.canvas.byId('username').innerHTML = sr.context.user.fullName;
+           var sr = JSON.parse(msg);
+  
+   Sfdc.canvas.byId('username').innerHTML =  Sfdc.canvas.oauth.token(sr.oauthToken);
             
    //Prepare a query url to query leads data from Salesforce
    var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+company+,+phone+from+Lead";
