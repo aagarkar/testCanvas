@@ -10,6 +10,21 @@
 </head>
 <body>
 <script>
+    
+    
+    
+    var client = Sfdc.canvas.oauth.client();
+
+// get the context object
+Sfdc.canvas.client.ctx(function(ctx) {
+  // do something
+}, client);
+
+// send a custom event to Salesforce where this Canvas app appears
+Sfdc.canvas.client.publish(client, {
+  name: 'myevent.snapshotCompleted',
+  payload: {some: 'update'}
+});
 
     if (self === top) {
         // Not in Iframe
