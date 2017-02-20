@@ -26,6 +26,11 @@
             return false;
         }
 
+        
+         if (self === top) {
+            // Not in Iframe
+            alert("This canvas app must be included within an iframe");
+        }
         // Bootstrap the page once the DOM is ready.
         Sfdc.canvas(function() {
             // On Ready...
@@ -39,19 +44,12 @@
                     .substring(1,40) + "…";
             }
             login.onclick=loginHandler;
-        });
+       
         
         
+        //added code
         
         
-          windows.onload=function(){
-        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
-        }
-        if (self === top) {
-            // Not in Iframe
-            alert("This canvas app must be included within an iframe");
-        }
-        Sfdc.canvas(function() {
           // var sr = JSON.parse('<%=signedRequestJson%>');
    // Save the token
              var sr = JSON.parse(msg);
@@ -75,7 +73,18 @@
        
                    Sfdc.canvas.byId('leaddetails').innerHTML = leadStr;
                  }}); //end success callback
-   });  //end ajax
+        
+        
+        
+        });
+        
+        
+        
+        
+       
+       
+      
+
     </script>
     <h1 id="header">Force.com Canvas OAuth App</h1>
     <div>
@@ -83,6 +92,7 @@
     </div>
     <div>
         <a id="login" href="#">Login</a><br/>
+        <h1>Hello <span id='username'></span></h1>
         <span id='leaddetails'></span>
     <a id="ctxlink" href="#">Get Context</a>
     </div>
