@@ -4,10 +4,7 @@
     // Pull the signed request out of the request body and verify/decode it.
     Map<String, String[]> parameters = request.getParameterMap();
     String[] signedRequest = parameters.get("signed_request");
-    if (signedRequest == null) {%>
-        This App must be invoked via a signed request!<%
-        return;
-    }
+  
     String yourConsumerSecret=System.getenv("CANVAS_CONSUMER_SECRET");
     //String yourConsumerSecret="1818663124211010887";
     String signedRequestJson = SignedRequest.verifyAndDecodeAsJson(signedRequest[0], yourConsumerSecret);
