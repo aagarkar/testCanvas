@@ -50,9 +50,9 @@
         //added code
         
         
-          // var sr = JSON.parse('<%=signedRequestJson%>');
+          var sr = JSON.parse('<%=signedRequestJson%>');
    // Save the token
-             var sr = JSON.parse(msg);
+           //  var sr = JSON.parse(msg);
    Sfdc.canvas.oauth.token(sr.oauthToken);
    Sfdc.canvas.byId('username').innerHTML = sr.context.user.fullName;
             
@@ -88,12 +88,12 @@
     </script>
     <h1 id="header">Force.com Canvas OAuth App</h1>
     <div>
-        access_token = <span id="oauth"></span>
+        Access Token = <span id="oauth"></span>
     </div>
     <div>
         <a id="login" href="#">Login</a><br/>
-        <h1>Hello <span id='username'></span></h1>
-        <span id='leaddetails'></span>
+        <h1>Hello <span id='username'></span></h1><br/>
+        <span id='leaddetails'></span><br/>
     <a id="ctxlink" href="#">Get Context</a>
     </div>
 </body>
