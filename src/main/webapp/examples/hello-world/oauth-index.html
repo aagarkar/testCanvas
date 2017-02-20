@@ -23,6 +23,8 @@
     }
     Sfdc.canvas.client.autogrow(Sfdc.canvas.oauth.client());
         Sfdc.canvas.byId('canvas-request-string').innerHTML = jsonSyntaxHighlight(msg.payload);
+        alert(Sfdc.canvas.byId('canvas-request-string').innerHTML);
+        alert(jsonSyntaxHighlight(msg.payload));
     }
 
      function jsonSyntaxHighlight(json) {
