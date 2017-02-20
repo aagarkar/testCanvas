@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<title>Callback Refresh Window</title>
+<script type="text/javascript">
+    try {
+        if (window.opener) {
+  try {
+    window.opener.Sfdc.canvas.oauth
+      .childWindowUnloadNotification(window.location.hash);
+  } catch (e) {
+    // do nothing
+  }
+  window.close();
+}
+    } catch (ignore) {}
+    self.close();
+</script>
+</head>
+<body>
+</body>
+</html>
+
+if (window.opener) {
+  try {
+    window.opener.Sfdc.canvas.oauth
+      .childWindowUnloadNotification(window.location.hash);
+  } catch (e) {
+    // do nothing
+  }
+  window.close();
+}
