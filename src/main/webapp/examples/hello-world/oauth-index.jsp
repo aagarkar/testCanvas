@@ -1,3 +1,19 @@
+<%@ page import="canvas.SignedRequest" %>
+<%@ page import="java.util.Map" %>
+<%
+    // Pull the signed request out of the request body and verify/decode it.
+    Map<String, String[]> parameters = request.getParameterMap();
+    String[] signedRequest = parameters.get("signed_request");
+    if (signedRequest == null) {%>
+        This App must be invoked via a signed request!<%
+        return;
+    }
+    String yourConsumerSecret=System.getenv("CANVAS_CONSUMER_SECRET");
+    //String yourConsumerSecret="1818663124211010887";
+    String signedRequestJson = SignedRequest.verifyAndDecodeAsJson(signedRequest[0], yourConsumerSecret);
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
     <script type="text/javascript" src="https://cs60.salesforce.com/canvas/sdk/js/canvas-all.js"></script>
