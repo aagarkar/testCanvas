@@ -4,15 +4,7 @@
 <title>Callback Refresh Window</title>
 <script type="text/javascript">
     try {
-        if (window.opener) {
-  try {
-    window.opener.Sfdc.canvas.oauth
-      .childWindowUnloadNotification(window.location.hash);
-  } catch (e) {
-    // do nothing
-  }
-  window.close();
-}
+        window.opener.Sfdc.canvas.oauth.childWindowUnloadNotification(self.location.hash);
     } catch (ignore) {}
     self.close();
 </script>
@@ -20,13 +12,3 @@
 <body>
 </body>
 </html>
-
-if (window.opener) {
-  try {
-    window.opener.Sfdc.canvas.oauth
-      .childWindowUnloadNotification(window.location.hash);
-  } catch (e) {
-    // do nothing
-  }
-  window.close();
-}
