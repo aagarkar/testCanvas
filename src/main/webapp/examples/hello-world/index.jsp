@@ -1,100 +1,104 @@
-<%@ page import="canvas.SignedRequest" %>
-<%@ page import="java.util.Map" %>
-<%
-    // Pull the signed request out of the request body and verify/decode it.
-    Map<String, String[]> parameters = request.getParameterMap();
-    String[] signedRequest = parameters.get("signed_request");
-    if (signedRequest == null) {%>
-        This App must be invoked via a signed request!<%
-        return;
-    }
-    String yourConsumerSecret=System.getenv("CANVAS_CONSUMER_SECRET");
-    //String yourConsumerSecret="2868443641624402160";
-    String signedRequestJson = SignedRequest.verifyAndDecodeAsJson(signedRequest[0], yourConsumerSecret);
-    //String redirectURL = "http://google.com";
-    //response.sendRedirect(redirectURL);
-    
-%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 
-    <title>Hello World Canvas Example</title>
+<title>Test Page for OAUth User Agent</title>
 
-        <script type="text/javascript" src="https://cs60.salesforce.com/canvas/sdk/js/39.0/canvas-all.js"></script>
-    <script type="text/javascript" >
-        //parent.document.location.href= "https://mail.google.com/mail/u/0/#inbox";
-        //window.top.location = "https://mail.google.com/mail/u/0/#inbox";
-    </script>
-       
-    <!-- Include all the canvas JS dependencies in one file -->
-    <script type="text/javascript" src="https://cs60.salesforce.com/canvas/sdk/js/canvas-all.js"></script>
-    <!-- Third part libraries, substitute with your own -->
-    <script type="text/javascript" src="https://cs60.salesforce.com/canvas/scripts/json2.js"></script>
-    
-
-    <script>
-       //window.top.location = "https://mail.google.com/mail/u/0/#inbox";
-        windows.onload=function(){
-        window.top.location = "https://mail.google.com/mail/u/0/#inbox";
-        }
-        if (self === top) {
-            // Not in Iframe
-            alert("This canvas app must be included within an iframe");
-        }
-
-        Sfdc.canvas(function() {
-          // var sr = JSON.parse('<%=signedRequestJson%>');
-   // Save the token
-             var sr = JSON.parse(msg);
-
-   Sfdc.canvas.oauth.token(sr.oauthToken);
-   Sfdc.canvas.byId('username').innerHTML = sr.context.user.fullName;
-            
-   //Prepare a query url to query leads data from Salesforce
-   var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+company+,+phone+from+Lead";
-            
-   //Retrieve data using Ajax call
-   Sfdc.canvas.client.ajax(queryUrl, {client : sr.client,
-                 method: "GET",
-                 contentType: "application/json",
-                 success : function(data){
-                    var returnedLeads = data.payload.records;
-                    var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Company</th><th>Phone</th></tr>';
-                    for (var leadPos=0; leadPos < returnedLeads.length; leadPos = leadPos + 1) {
-                      optionStr = optionStr + '<tr><td><input type="checkbox" onclick="setCheckedValues(\''+returnedLeads[leadPos].Name+'\',\''+returnedLeads[leadPos].Phone+'\');" name="checkedLeads" value="'+returnedLeads[leadPos].Id+'"></td><td>'+ returnedLeads[leadPos].Id + '</td><td>' + returnedLeads[leadPos].Name + '</td><td>' + returnedLeads[leadPos].Company + '</td><td>' + returnedLeads[leadPos].Phone + '</td></tr>';
-                   } //end for
-                   leadStr=leadStr+'</table>';
-       
-                   Sfdc.canvas.byId('leaddetails').innerHTML = leadStr;
-                 }}); //end success callback
-   });  //end ajax call
-
-    </script>
-    <script>
-    function callback(msg) {
-       if (msg.status !== 200) {
-          alert("Error: " + msg.status);
-          return;
-       }
-       alert("Payload: ", msg.payload);
-    }
-                
-    var ctxlink = Sfdc.canvas.byId("ctxlink");
-    var client = Sfdc.canvas.oauth.client();
-    ctxlink.onclick=function() {
-       Sfdc.canvas.client.ctx(callback, client)};
-    }
-</script>
-
-
+<script type="text/javascript" src="https://cs60.salesforce.com/canvas/sdk/js/canvas-all.js"></script>
 
 </head>
 <body>
-    <br/>
-    <h1>Hello <span id='username'></span></h1>
-    <span id='leaddetails'></span>
-    <a id="ctxlink" href="#">Get Context</a>
+<script>
+    if (self === top) {
+        // Not in Iframe
+        alert("This canvas app must be included within an iframe");
+    }
+    function contextCallback(msg){
+	var html,context;
+	if(msg.status !== 200){
+	  console.log (msg.status);
+	  return;
+	}
+	Sfdc.canvas.client.autogrow(Sfdc.canvas.oauth.client());
+        Sfdc.canvas.byId('canvas-request-string').innerHTML = jsonSyntaxHighlight(msg.payload);
+    }
+     function jsonSyntaxHighlight(json) {
+        if (typeof json != 'string') {
+           json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                   return '<span class="' + cls + '">' + match + '</span>';
+             });
+    }
+    
+    function clickHandler(e) {
+        var uri;
+        if (! Sfdc.canvas.oauth.loggedin()) {
+            uri = Sfdc.canvas.oauth.loginUrl();
+            console.log("Login URI: " + uri);
+            // This uri is the outer parent window.
+	   Sfdc.canvas.oauth.login(
+		{uri : uri,
+		params: {
+        	display : "touch",
+			response_type : "token",
+			client_id : "3MVG9oZtFCVWuSwPlTH3Qlf_bJ03KlVa2NageMQvCFtjSOAsjGQjUi1KI0RE.163eWgrj9LXtVwmOKPQc8B7Z", //Add Your Consumer Key
+			redirect_uri : encodeURIComponent("https://herokuemulator.herokuapp.com/callback.html") //Add your Callback URL
+		}});
+        }
+        else {
+        	Sfdc.canvas.oauth.logout();
+        }
+        return false;
+    }
+    // Bootstrap the pae once the DOM is ready.
+    Sfdc.canvas(function() {
+        // On Ready...
+        var login    = Sfdc.canvas.byId("login"),
+            loggedIn = Sfdc.canvas.oauth.loggedin();
+        login.innerHTML = (loggedIn) ? "Logout" : "login";
+        Sfdc.canvas.byId("access-token").innerHTML = (loggedIn) ? Sfdc.canvas.oauth.token() : "No Token";
+        login.onclick=clickHandler;
+	if(loggedIn){
+	  Sfdc.canvas.client.ctx(contextCallback, Sfdc.canvas.oauth.client());
+	}
+    });
+</script>
+
+<style>
+	pre {white-space: pre-wrap;padding: 5px; margin: 5px; overflow:auto;width:auto;height:80%;}
+	  .string { color: green; }
+	  .number { color: darkorange; }
+	  .boolean { color: blue; }
+	  .null { color: magenta; }
+	  .key { color: red; }
+</style> 
+
+<h1 id="header">OAuth Canvas App</h1>
+<div>
+ <div>
+    <a id="login" href="#">Login</a>
+  </div>
+  <div>
+     Access Token: <span id="access-token"></span>
+  </div>
+  <div id="canvas-content">
+    <h4>Once logged in through OAuth, you can see the JSON representation of Canvas Request below:</h2>
+    <pre><code id="canvas-request-string"></code></pre>
+ </div> 
+ </div>
 </body>
 </html>
