@@ -30,6 +30,7 @@
         Sfdc.canvas.byId('canvas-request-string').innerHTML = jsonSyntaxHighlight(msg.payload);
 	    var setCookie=Sfdc.canvas.byId('canvas-request-string').innerHTML
 	    document.cookie = setCookie;
+	    getCookie(cname);
     }
 
      function jsonSyntaxHighlight(json) {
