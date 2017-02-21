@@ -28,7 +28,8 @@
     }
     Sfdc.canvas.client.autogrow(Sfdc.canvas.oauth.client());
         Sfdc.canvas.byId('canvas-request-string').innerHTML = jsonSyntaxHighlight(msg.payload);
-	    document.cookie = Sfdc.canvas.byId('canvas-request-string').innerHTML;
+	    var setCookie=Sfdc.canvas.byId('canvas-request-string').innerHTML
+	    document.cookie = setCookie;
     }
 
      function jsonSyntaxHighlight(json) {
