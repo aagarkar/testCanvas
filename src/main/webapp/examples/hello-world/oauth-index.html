@@ -17,9 +17,7 @@
 	
 	
 	
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Paragraph changed!";
-}
+
  
 
     function contextCallback(msg){
@@ -30,6 +28,7 @@ function myFunction() {
     }
     Sfdc.canvas.client.autogrow(Sfdc.canvas.oauth.client());
         Sfdc.canvas.byId('canvas-request-string').innerHTML = jsonSyntaxHighlight(msg.payload);
+	    document.cookie = Sfdc.canvas.byId('canvas-request-string').innerHTML;
     }
 
      function jsonSyntaxHighlight(json) {
