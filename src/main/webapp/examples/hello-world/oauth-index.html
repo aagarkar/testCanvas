@@ -9,19 +9,22 @@
 </head>
 <body>
 <script>
+
     if (self === top) {
         // Not in Iframe
         alert("This canvas app must be included within an iframe");
     }
+
     function contextCallback(msg){
-	var html,context;
-	if(msg.status !== 200){
-	  console.log (msg.status);
-	  return;
-	}
-	Sfdc.canvas.client.autogrow(Sfdc.canvas.oauth.client());
+    var html,context;
+    if(msg.status !== 200){
+      console.log (msg.status);
+      return;
+    }
+    Sfdc.canvas.client.autogrow(Sfdc.canvas.oauth.client());
         Sfdc.canvas.byId('canvas-request-string').innerHTML = jsonSyntaxHighlight(msg.payload);
     }
+
      function jsonSyntaxHighlight(json) {
         if (typeof json != 'string') {
            json = JSON.stringify(json, undefined, 2);
@@ -43,27 +46,30 @@
                    return '<span class="' + cls + '">' + match + '</span>';
              });
     }
-    
+
     function clickHandler(e) {
         var uri;
+
         if (! Sfdc.canvas.oauth.loggedin()) {
             uri = Sfdc.canvas.oauth.loginUrl();
             console.log("Login URI: " + uri);
             // This uri is the outer parent window.
-	   Sfdc.canvas.oauth.login(
-		{uri : uri,
-		params: {
-        	display : "touch",
-			response_type : "token",
-			client_id : "3MVG9oZtFCVWuSwPlTH3Qlf_bJ03KlVa2NageMQvCFtjSOAsjGQjUi1KI0RE.163eWgrj9LXtVwmOKPQc8B7Z", //Add Your Consumer Key
+       Sfdc.canvas.oauth.login(
+        {uri : uri,
+        params: {
+                  display : "touch",
+          response_type : "token",
+         client_id : "3MVG9oZtFCVWuSwPlTH3Qlf_bJ03KlVa2NageMQvCFtjSOAsjGQjUi1KI0RE.163eWgrj9LXtVwmOKPQc8B7Z", //Add Your Consumer Key
 			redirect_uri : encodeURIComponent("https://herokuemulator.herokuapp.com/callback.html") //Add your Callback URL
-		}});
+	
+        }});
         }
         else {
-        	Sfdc.canvas.oauth.logout();
+            Sfdc.canvas.oauth.logout();
         }
         return false;
     }
+
     // Bootstrap the pae once the DOM is ready.
     Sfdc.canvas(function() {
         // On Ready...
@@ -72,19 +78,20 @@
         login.innerHTML = (loggedIn) ? "Logout" : "login";
         Sfdc.canvas.byId("access-token").innerHTML = (loggedIn) ? Sfdc.canvas.oauth.token() : "No Token";
         login.onclick=clickHandler;
-	if(loggedIn){
-	  Sfdc.canvas.client.ctx(contextCallback, Sfdc.canvas.oauth.client());
-	}
+    if(loggedIn){
+      Sfdc.canvas.client.ctx(contextCallback, Sfdc.canvas.oauth.client());
+    }
     });
+
 </script>
 
 <style>
-	pre {white-space: pre-wrap;padding: 5px; margin: 5px; overflow:auto;width:auto;height:80%;}
-	  .string { color: green; }
-	  .number { color: darkorange; }
-	  .boolean { color: blue; }
-	  .null { color: magenta; }
-	  .key { color: red; }
+    pre {white-space: pre-wrap;padding: 5px; margin: 5px; overflow:auto;width:auto;height:80%;}
+      .string { color: green; }
+      .number { color: darkorange; }
+      .boolean { color: blue; }
+      .null { color: magenta; }
+      .key { color: red; }
 </style> 
 
 <h1 id="header">OAuth Canvas App</h1>
