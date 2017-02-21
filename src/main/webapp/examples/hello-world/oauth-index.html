@@ -14,6 +14,13 @@
         // Not in Iframe
         alert("This canvas app must be included within an iframe");
     }
+	
+	
+	
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Paragraph changed!";
+}
+ 
 
     function contextCallback(msg){
     var html,context;
@@ -101,6 +108,22 @@
   </div>
   <div>
      Access Token: <span id="access-token"></span>
+  </div>
+  <div>
+	  <form action="/action_page.php" method="get">
+  First name: <input type="text" name="fname"><br>
+  Last name: <input type="text" name="lname"><br>
+  <button type="submit">Submit using GET</button>
+  <button type="submit" formmethod="post" formaction="../index.php">Submit using POST</button>
+</form>
+	</div>
+
+<script>
+function myFunction() {
+    document.getElementById("demo").innerHTML = "Paragraph changed!";
+}
+</script>  
+  	
   </div>
   <div id="canvas-content">
     <h4>Once logged in through OAuth, you can see the JSON representation of Canvas Request below:</h2>
