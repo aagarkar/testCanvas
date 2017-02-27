@@ -47,7 +47,7 @@
 	   //Retrieve data using Ajax call
 	   Sfdc.canvas.client.ajax(queryUrl, 
 								{	client : sr.client,
-									method: "GET",
+									method: "POST",
 									contentType: "application/json",
 									success : function(data)
 									{
@@ -70,9 +70,9 @@
 <body>
     <br/>
     <h1>Hello <span id='username'></span></h1>
-    <h1>Profile<span id='profileId'></span></h1>
+    <h1>Profile <span id='profileId'></span></h1>
     <h1>Email <span id='email'></span></h1>
-    <h2>Lead Details:</h2><br/>
+    <h2>Lead Details: </h2><br/>
      <span id='leaddetails'></span>
 </body>
 </html>
