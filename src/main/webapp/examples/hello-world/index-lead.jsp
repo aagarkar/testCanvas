@@ -55,7 +55,7 @@
 									{
 										
 										var returnedLeads = data.payload.records;
-										var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Close Date</th><th>Stage</th></tr>';
+										var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Stage</th><th>Close Date</th></tr>';
 										for (var leadPos=0; leadPos < returnedLeads.length; leadPos = leadPos + 1) 
 										{
 											optionStr = optionStr + '<tr><td><input type="checkbox" onclick="setCheckedValues(\''+returnedLeads[leadPos].Name+'\',\''+returnedLeads[leadPos].StageName+'\');" name="checkedLeads" value="'+returnedLeads[leadPos].Id+'"></td><td>'+ returnedLeads[leadPos].Id + '</td><td>' + returnedLeads[leadPos].Name + '</td><td>' + returnedLeads[leadPos].StageName+ '</td><td>' + returnedLeads[leadPos].CloseDate + '</td></tr>';} //end for
