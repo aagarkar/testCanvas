@@ -43,7 +43,9 @@
 				
 	   //Prepare a query url to query leads data from Salesforce
 	   var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+company+,+phone+from+Lead";
-				
+		
+	  
+	  var leadStr;
 	   //Retrieve data using Ajax call
 	   Sfdc.canvas.client.ajax(queryUrl, 
 								{	client : sr.client,
