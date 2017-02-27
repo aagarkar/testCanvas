@@ -60,6 +60,7 @@
 <body>
     <br/>
     <h1>Hello <span id='username'></span></h1>
+    <h2>Lead Details:</h2><br/>
      <span id='leaddetails'></span>
 </body>
 </html>
