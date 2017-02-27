@@ -42,7 +42,7 @@
 	   Sfdc.canvas.byId('email').innerHTML = sr.context.user.email;
 				
 	   //Prepare a query url to query leads data from Salesforce
-	   var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+company+,+phone+from+Lead";
+	   var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+CloseDate+,+StageName+from+Opportunity";
 	  	
 	  
 	  
@@ -55,10 +55,10 @@
 									{
 										
 										var returnedLeads = data.payload.records;
-										var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Company</th><th>Phone</th></tr>';
+										var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Close Date</th><th>Stage</th></tr>';
 										for (var leadPos=0; leadPos < returnedLeads.length; leadPos = leadPos + 1) 
 										{
-											optionStr = optionStr + '<tr><td><input type="checkbox" onclick="setCheckedValues(\''+returnedLeads[leadPos].Name+'\',\''+returnedLeads[leadPos].Phone+'\');" name="checkedLeads" value="'+returnedLeads[leadPos].Id+'"></td><td>'+ returnedLeads[leadPos].Id + '</td><td>' + returnedLeads[leadPos].Name + '</td><td>' + returnedLeads[leadPos].Company + '</td><td>' + returnedLeads[leadPos].Phone + '</td></tr>';} //end for
+											optionStr = optionStr + '<tr><td><input type="checkbox" onclick="setCheckedValues(\''+returnedLeads[leadPos].Name+'\',\''+returnedLeads[leadPos].StageName+'\');" name="checkedLeads" value="'+returnedLeads[leadPos].Id+'"></td><td>'+ returnedLeads[leadPos].Id + '</td><td>' + returnedLeads[leadPos].Name + '</td><td>' + returnedLeads[leadPos].StageName+ '</td><td>' + returnedLeads[leadPos].CloseDate + '</td></tr>';} //end for
 										optionStr=optionStr+'</table>';
 		   
 										Sfdc.canvas.byId('leaddetails').innerHTML = optionStr;
