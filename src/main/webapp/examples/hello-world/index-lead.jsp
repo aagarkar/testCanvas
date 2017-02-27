@@ -19,12 +19,12 @@
 
     <title>Hello World Canvas Example</title>
 
-    <link rel="stylesheet" type="text/css" href="https://cs60.salesforce.com/canvas/sdk/css/canvas.css" />
+    <link rel="stylesheet" type="text/css" href="/canvas.css" />
 
     <!-- Include all the canvas JS dependencies in one file -->
-    <script type="text/javascript" src="https://cs60.salesforce.com/canvas/sdk/js/canvas-all.js"></script>
+    <script type="text/javascript" src="/js/canvas-all.js"></script>
     <!-- Third part libraries, substitute with your own -->
-    <script type="text/javascript" src="https://cs60.salesforce.com/canvas/scripts/json2.js"></script>
+    <script type="text/javascript" src="/scripts/json2.js"></script>
 
     <script>
         if (self === top) {
@@ -45,7 +45,7 @@
 	   var queryUrl = sr.context.links.queryUrl+"?q=SELECT+id+,+name+,+company+,+phone+from+Lead";
 		
 	  
-	  var leadStr;
+	  
 	   //Retrieve data using Ajax call
 	   Sfdc.canvas.client.ajax(queryUrl, 
 								{	client : sr.client,
@@ -53,6 +53,7 @@
 									contentType: "application/json",
 									success : function(data)
 									{
+										var leadStr;
 										var returnedLeads = data.payload.records;
 										var optionStr = '<table border="1"><tr><th></th><th>Id</th><th>Name</th><th>Company</th><th>Phone</th></tr>';
 										for (var leadPos=0; leadPos < returnedLeads.length; leadPos = leadPos + 1) 
