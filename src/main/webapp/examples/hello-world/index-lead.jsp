@@ -72,8 +72,8 @@
 	
     <h1>Hello <span id='username'></span></h1>
     <div>
-	    <h3>Profile <span id='profileId'></span></h3>
-	    <h3>Email <span id='email'></span></h3>
+	    <h3>Profile: <span id='profileId'></span></h3>
+	    <h3>Email: <span id='email'></span></h3>
     </div>
     <h3>Lead Details: </h3><br/>
      <span id='leaddetails'></span>
